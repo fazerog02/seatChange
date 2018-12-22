@@ -103,10 +103,10 @@ reinput_val:
         for(int j = 0; j < pos_list.size(); j++){
             if(pos_list[j] == rndNum) isExist = true;
         }
-        if(seatNum[rndNum] != -1) isExist = false;
+        if(seatNum[rndNum-1] != -1) isExist = false;
         if(isExist){
-            seatNum[rndNum] = val_list[i];
-            put_list.push_back(rndNum);
+            seatNum[rndNum-1] = val_list[i];
+            put_list.push_back(rndNum-1);
         } else {
             goto retry_sp;
         }
