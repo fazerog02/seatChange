@@ -14,7 +14,6 @@ bool isNum(string s){
         return false;
     }
 }
-
 int main(){
 reinput_peopleNum:
     cout << "人数を入力" << endl;
@@ -26,28 +25,23 @@ reinput_peopleNum:
         goto reinput_peopleNum;
     }
     peopleNum_stoi = stoi(peopleNum);
+    if(peopleNum_stoi >= 10000){
+        cout << "無効な入力" << endl;
+        goto reinput_peopleNum;
+    }
     vector<int> seatNum(peopleNum_stoi);
     for(int i = 0; i < peopleNum_stoi; i++){
         seatNum[i] = -1;
     }
-    //setRandom
+    //config
     random_device rnd;
     int rndNum;
-    for(int i = 0; i < peopleNum_stoi; i++){
-        retry:
-        rndNum = rnd() % peopleNum_stoi + 1;
-        for(int j = 0; j < peopleNum_stoi; j++){
-            if(seatNum[j] == rndNum) goto retry;
-        }
-        seatNum[i] = rndNum;
-    }
-    //config
     string pos, val;
     int pos_stoi, val_stoi;
+    vector<int> pos_list, val_list, put_list;
     int counter = 0;
-    cout << "固定席の設定（endで終了）" << endl;
-    cout << "1~人数までの数字で席を指定する" << endl;
-    cout << "指定する際の席の番号" << endl;
+    cout << "限定ランダムの設定(目が悪い人など)[endで終了]" << endl;
+    cout << "ランダムに選ぶ際の席の番号" << endl;
     for(int i = 0; i < peopleNum_stoi; i++){
         cout << '[';
         if((i+1) / 10 == 0) cout << ' ';
@@ -59,10 +53,9 @@ reinput_peopleNum:
         counter++;
     }
     cout << endl;
+    cout << "ランダムに選ぶ席を指定" << endl;
     while(1){
-        counter = 0;
 reinput_pos:
-        cout << "席を指定" << endl;
         cin >> pos;
         if(pos == "end"){
             for(int i = 0; i < 20; i++){
@@ -79,9 +72,18 @@ reinput_pos:
             cout << "無効な入力" << endl;
             goto reinput_pos;
         }
+        pos_list.push_back(pos_stoi);
+    }
+    cout << "出席番号を入力" << endl;
+    while(1){
 reinput_val:
-        cout << "出席番号を入力" << endl;
         cin >> val;
+        if(val == "end"){
+            for(int i = 0; i < 20; i++){
+                cout << endl;
+            }
+            break;
+        }
         if(!isNum(val)){
             cout << "無効な入力" << endl;
             goto reinput_val;
@@ -91,19 +93,38 @@ reinput_val:
             cout << "無効な入力" << endl;
             goto reinput_val;
         }
-        seatNum[pos_stoi-1] = val_stoi;
-        cout << "プレビュー" << endl;
-        for(int i = 0; i < peopleNum_stoi; i++){
-            cout << '[';
-            if(seatNum[i] / 10 == 0 && seatNum[i] != -1) cout << 0;
-            cout << seatNum[i] << ']';
-            if(counter == 5){
-                cout << endl;
-                counter = -1;
-            }
-            counter++;
+        val_list.push_back(val_stoi);
+    }
+    bool isExist;
+    for(int i = 0; i < val_list.size(); i++){
+        retry_sp:
+        isExist = false;
+        rndNum = rnd() % peopleNum_stoi;
+        for(int j = 0; j < pos_list.size(); j++){
+            if(pos_list[j] == rndNum) isExist = true;
         }
-        cout << endl;
+        if(seatNum[rndNum] != -1) isExist = false;
+        if(isExist){
+            seatNum[rndNum] = val_list[i];
+            put_list.push_back(rndNum);
+        } else {
+            goto retry_sp;
+        }
+    }
+    //setRandom
+    int a = 0;
+    for(int i = 0; i < peopleNum_stoi; i++){
+        for(int j = 0; j < put_list.size(); j++){
+            if(i == put_list[j]) goto skip;
+        }
+        retry:
+        rndNum = rnd() % peopleNum_stoi + 1;
+        for(int j = 0; j < peopleNum_stoi; j++){
+            if(seatNum[j] == rndNum) goto retry;
+        }
+        seatNum[i] = rndNum;
+        skip:
+        a++;
     }
     //do
     counter = 0;
@@ -112,7 +133,7 @@ reinput_val:
     while(getchar() != '\n');
     for(int i = 3; i >= 1; i--){
         cout << i << endl;
-        sleep(1);
+        if(peopleNum_stoi <= 100)sleep(1);
     }
     cout << "GO!!!" << endl << endl;
     sleep(1);
