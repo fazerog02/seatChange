@@ -30,7 +30,7 @@ int main(){
     cout << "指定する際の席の番号" << endl;
     for(int i = 0; i < peopleNum; i++){
         cout << '[';
-        if(seatNum[i] / 10 == 0) cout << 0;
+        if((i+1) / 10 == 0) cout << ' ';
         cout << i+1 << ']';
         if(counter == 5){
             cout << endl;
@@ -68,7 +68,7 @@ int main(){
     }
     //do
     counter = 0;
-    cout << "ARE YOU READY?" << endl;
+    cout << "ARE YOU READY? (pless Enter)" << endl;
     while(getchar() != '\n');
     while(getchar() != '\n');
     for(int i = 3; i >= 1; i--){
