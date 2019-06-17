@@ -5,11 +5,10 @@ using namespace std;
 
 // 文字列が数字かどうか判定する
 bool IsNumber(string s){
-    bool is_number = true;
     for(int i = 0; i < s.size(); i++){
-        if(!isdigit(s[i])) is_number = false;
+        if(!isdigit(s[i])) return false;
     }
-    return is_number ? true : false;
+    return true;
 }
 
 
