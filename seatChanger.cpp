@@ -20,7 +20,7 @@ int main(){
         cout << ">>> ";
         cin >> num_of_people_str;  // 文字を入力されたときのためにstringで受けておく
     }
-    num_of_people = stoi(num_of_people_str);  // stringで受けていたものをintに戻す
+    num_of_people = stoi(num_of_people_str);
 
     // 座席表の出席番号を-1で初期化しておく
     vector<int> seating_chart(num_of_people);
@@ -50,8 +50,8 @@ int main(){
         if(selected_position_str == "end") break;
         if(!IsNumber(selected_position_str)) continue;
 
-        selected_position = stoi(selected_position_str);  // stringで受けていたものをintに戻す
-        selected_position_list.push_back(selected_position);  // リストに座席の番号を追加する
+        selected_position = stoi(selected_position_str);
+        selected_position_list.push_back(selected_position);
     }
     system("clear");
 
@@ -67,8 +67,8 @@ int main(){
         if(selected_seat_num_str == "end") break;
         if(!IsNumber(selected_seat_num_str)) continue;
 
-        selected_seat_num = stoi(selected_seat_num_str);  // stringで受けていたものをintに戻す
-        selected_seat_num_list.push_back(selected_seat_num);  // リストに座席の番号を追加する
+        selected_seat_num = stoi(selected_seat_num_str);
+        selected_seat_num_list.push_back(selected_seat_num);
     }
     system("clear");
 
