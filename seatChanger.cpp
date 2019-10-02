@@ -124,7 +124,7 @@ int main(){
     cout << "-------黒板--------" << endl << endl;
     for(int i = 0; i < num_of_people; i++){
         printf("%c%2d%c ", '[', seating_chart[i], ']');
-        if((i+1) % 6 == 0) cout << endl;  // 6個ずつで改行する
+        if((i+1) % 7 == 0) cout << endl;  // 7個ずつで改行する
     }
     cout << endl << endl;
 
