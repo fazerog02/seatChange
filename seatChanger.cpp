@@ -34,7 +34,7 @@ int main(){
     cout << "席の番号" << endl;
     for(int i = 1; i <= num_of_people; i++){
         printf("%c%2d%c ", '[', i, ']');
-        if(i % 6 == 0) cout << endl;  // 6個ずつで改行する
+        if(i % 7 == 0) cout << endl;  // 7個ずつで改行する
     }
     cout << endl;
 
